@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:ntsmetrics/forgotpasswprd/view/forgot_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -16,8 +17,25 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Login'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new,
+            color: Color(0xFF2C2C2C),
+            size: 15,
+          ),
+          onPressed: () {
+            // Handle back button press
+          },
+        ),
+        title: Text('Back',
+          style: GoogleFonts.alata(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF2C2C2C),
+          ),
+        ),
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -29,13 +47,68 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment
                   .start, // Aligns all child widgets to the left
               children: [
+                //sign in text
+                Text(
+                  'Sign in',
+                  style: GoogleFonts.alata(
+                    fontSize: 42,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF00D1FF),
+                  ),
+                ),
+                SizedBox(height: 8),
+
+                //sign in text
+                Text(
+                  'Please log in into your account',
+                  style: GoogleFonts.alata(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF2C2C2C),
+                  ),
+                ),
+                SizedBox(height: 40),
+
                 // Email TextField with Icon
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text('Email',
+                        style: GoogleFonts.alata(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF2C2C2C),
+                        ),
+                    ),
+                  ),
+                ),
                 TextFormField(
+                  style: GoogleFonts.alata(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF2C2C2C),
+                  ),
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email),
+                    //labelText: 'Email',
+                    suffixIcon: Icon(Icons.check, color: Colors.green),
+                    filled: true ,
+                    fillColor: Color(0xFFF5F5F5),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Color(0xFF00AEF7), width: 2.0),
+                    ),
                   ),
                   keyboardType: TextInputType.emailAddress,
+                  cursorColor: Color(0xFF00Aef7),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -45,18 +118,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   onSaved: (value) => email = value,
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 25),
 
                 // Password TextField with Eye Icon to show/hide password
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text('Password',
+                      style: GoogleFonts.alata(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF2C2C2C),
+                      ),
+                    ),
+                  ),
+                ),
                 TextFormField(
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF2C2C2C),
+                  ),
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock),
+                    //labelText: 'Password',
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isPasswordVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
+                        color: Colors.blue,
                       ),
                       onPressed: () {
                         setState(() {
@@ -64,8 +155,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       },
                     ),
+                    filled: true ,
+                    fillColor: Color(0xFFF5F5F5),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Color(0xFF00AEF7), width: 2.0),
+                    ),
                   ),
                   obscureText: !_isPasswordVisible,
+                  cursorColor: Color(0xFF00Aef7),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -74,111 +180,126 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   onSaved: (value) => password = value,
                 ),
-                SizedBox(height: 16),
 
-                // Align "Enter Pin" to the left
+                //forget password button
                 Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Enter Pin',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                SizedBox(height: 8),
-
-                // Pin TextField using PinCodeTextField for OTP-style input
-                PinCodeTextField(
-                  appContext: context,
-                  length: 4,
-                  obscureText: false,
-                  keyboardType: TextInputType.number,
-                  animationType: AnimationType.fade,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 50,
-                    fieldWidth: 40,
-                    activeFillColor: Colors.white,
-                  ),
-                  onChanged: (value) {},
-                  onCompleted: (value) {
-                    pin = value;
-                  },
-                ),
-                SizedBox(height: 16),
-
-                // Align "Confirm Pin" to the left
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Confirm Pin',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-                SizedBox(height: 8),
-
-                // Confirm Pin TextField using PinCodeTextField for OTP-style input
-                PinCodeTextField(
-                  appContext: context,
-                  length: 4,
-                  obscureText: false,
-                  keyboardType: TextInputType.number,
-                  animationType: AnimationType.fade,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 50,
-                    fieldWidth: 40,
-                    activeFillColor: Colors.white,
-                  ),
-                  onChanged: (value) {},
-                  onCompleted: (value) {
-                    confirmPin = value;
-                    if (confirmPin != pin) {
-                      // Show error if pins do not match
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Pins do not match'),
-                      ));
-                    }
-                  },
-                ),
-                SizedBox(height: 32),
-
-                // Submit Button
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                      if (pin != confirmPin) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Pins do not match'),
-                        ));
-                        return;
-                      }
-                      // Process sign up with the entered information
-                      print('Email: $email, Password: $password, Pin: $pin');
-                    }
-                  },
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 50),
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      // Handle forgot password
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom:10,top: 3),
+                      child: Text(
+                        'Forgot password?',
+                        style: GoogleFonts.alata(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFF78720),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
 
+                // Sign In Button
                 SizedBox(
-                  height: 15,
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        if (pin != confirmPin) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Pins do not match'),
+                          ));
+                          return;
+                        }
+                        // Process sign up with the entered information
+                        print('Email: $email, Password: $password, Pin: $pin');
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF00D1FF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Sign in',
+                      style: GoogleFonts.alata(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    ),
+                  ),
                 ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPasswordScreen()),
-                          );
-                        },
-                        child: Text('Forgot Password ?')))
+
+                SizedBox(height: 80,),
+
+                //Sign in with google & sign in with fb button
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      // Handle sign in with Google
+                    },
+                    icon: Image.asset(
+                      'assets/google_logo.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                    label: Text('Sign in with Google',
+                      style: GoogleFonts.alata(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF00D1FF),
+                      ),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      side: BorderSide(color: Color(0xFF00D1FF,)),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      // Handle sign in with Facebook
+                    },
+                    // icon: Image.network(
+                    //   'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Facebook_icon.svg/512px-Facebook_icon.svg.png',
+                    //   width: 24,
+                    //   height: 24,
+                    // ),
+                    icon: Image.asset(
+                      'assets/fb_logo.png',
+                      width: 24,
+                      height: 24,
+                    ),
+                    label: Text('Sign in with Facebook',
+                      style: GoogleFonts.alata(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF00D1FF),
+                      ),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      side: BorderSide(color: Color(0xFF00D1FF,)),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
