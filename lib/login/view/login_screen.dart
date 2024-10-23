@@ -93,7 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     //labelText: 'Email',
                     suffixIcon: Icon(Icons.check, color: Colors.green),
                     filled: true ,
-                    fillColor: Color(0xFFF5F5F5),
+                    fillColor: MaterialStateColor.resolveWith((states) {
+                      if (states.contains(MaterialState.focused)) {
+                        return Color(0xFF00AEF7).withOpacity(0.2);
+                      }
+                      return Color(0xFFF5F5F5);
+                    }),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
@@ -104,11 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Color(0xFF00AEF7), width: 2.0),
+                        borderSide: BorderSide(color: Color(0xFF00AEF7), width: 1.0),
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  cursorColor: Color(0xFF00Aef7),
+                  cursorColor: Color(0xFF00AEf7),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -156,7 +161,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     filled: true ,
-                    fillColor: Color(0xFFF5F5F5),
+                    fillColor: MaterialStateColor.resolveWith((states) {
+                      if (states.contains(MaterialState.focused)) {
+                        return Color(0xFF00AEF7).withOpacity(0.2);
+                      }
+                      return Color(0xFFF5F5F5);
+                    }),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
@@ -167,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0xFF00AEF7), width: 2.0),
+                      borderSide: BorderSide(color: Color(0xFF00AEF7), width: 1.0),
                     ),
                   ),
                   obscureText: !_isPasswordVisible,
