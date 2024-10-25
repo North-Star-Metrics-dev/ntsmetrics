@@ -102,7 +102,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             buildMethods(iconOrImage: Icons.credit_card, title: "Credit Card"),
 
             //venmo method
-            buildMethods(iconOrImage: Image.asset("assets/venmo.png"), title: "Credit Card"),
+            buildMethods(iconOrImage: "assets/venmo.png", title: "Credit Card"),
           ],
         ),
       ),

@@ -68,6 +68,7 @@ flutter:
     - assets/fb_logo.png
     - assets/verification.png
     - assets/venmo.png
+    - assets/standard_chatered.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
