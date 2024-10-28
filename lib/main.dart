@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'addcard/view/add_card_screen.dart';
 import 'market/view/market_screen.dart';
 
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MarketScreen(),
+      home: AddCardScreen(),
     );
   }
 }
