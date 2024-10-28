@@ -24,65 +24,128 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           key: _formKey,
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+               mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start, 
               children: [
-                Text(
-                  'Create New Password',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                   padding: const EdgeInsets.only(left: 10.0, top: 80),
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      fontSize: 42,
+                      
+                      fontFamily: 'Alata',
+                      color: Color(0xFF00D1FF)
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 30), // Spacing
 
-                // Password Field
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Enter New Password',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+   Padding(
+    padding: const EdgeInsets.only(left: 10.0, top: 5),
+     child: Text(
+                    'Enter your email for the verification process,',
+                    style: TextStyle(
+                      fontSize: 16,
+                      
+                      fontFamily: 'Alata',
+                      
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  obscureText: true,
-                  onChanged: (value) {
-                    setState(() {
-                      _password = value;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your new password';
-                    }
-                    if (value.length < 6) {
-                      return 'Password should be at least 6 characters long';
-                    }
-                    return null;
-                  },
+   ),
+                Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 5),
+                  child: Text(
+                    'we will send code for your email',
+                    style: TextStyle(
+                      fontSize: 16,
+                      
+                      fontFamily: 'Alata',
+                      
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
-                SizedBox(height: 20), // Spacing
-
-                // Submit Button
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Perform submit action (e.g., API call)
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Password updated successfully')),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+   Padding(
+                    padding: const EdgeInsets.only(left: 10.0, top: 50),
+                  child: Text(
+                    'Email',
+                    style: TextStyle(
+                      fontSize: 16,
+                      
+                      fontFamily: 'Alata',
+                      
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+          
+          SizedBox(height: 10,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, top: 5),
+                  child: SizedBox(
+                    width: 342,  // Set your desired width
+                 height: 48,  
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Enter your Email',
+                        border: OutlineInputBorder(),
+                        // prefixIcon: Icon(Icons.lock),
+                      ),
+                      obscureText: true,
+                      onChanged: (value) {
+                        setState(() {
+                          _password = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your new password';
+                        }
+                        if (value.length < 6) {
+                          return 'Password should be at least 6 characters long';
+                        }
+                        return null;
+                      },
                     ),
                   ),
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 18),
-                  ),
                 ),
+                SizedBox(height: 30), // Spacing
+
+                // Submit Button
+               Padding(
+                  padding: const EdgeInsets.only(left: 10.0, top: 5),
+                 child: SizedBox(
+                 width: 342,  // Set your desired width
+                 height: 48,  // Set your desired height
+                 child: ElevatedButton(
+                
+                   onPressed: () {
+                     if (_formKey.currentState!.validate()) {
+                       // Perform submit action (e.g., API call)
+                       ScaffoldMessenger.of(context).showSnackBar(
+                         SnackBar(content: Text('Password updated successfully')),
+                       );
+                     }
+                   },
+                   style: ElevatedButton.styleFrom(
+backgroundColor:    Color(0xFF00D1FF),
+                     padding: EdgeInsets.symmetric(vertical: 15),
+                     shape: RoundedRectangleBorder(
+                       borderRadius: BorderRadius.circular(10),
+                      
+                     ),
+                   ),
+                   child: Text(
+                     'Continue',
+                     style: TextStyle(fontSize: 18),
+                   ),
+                 ),
+               ),
+               )
+
               ],
             ),
           ),
