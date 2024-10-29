@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ntsmetrics/account/view/account_screen.dart';
+import 'package:ntsmetrics/dashboard/view/dashboard_screen.dart';
 import 'package:ntsmetrics/forgotpasswprd/view/forgot_password_screen.dart';
 import 'dart:async';
 
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         // MaterialPageRoute(builder: (context) => HomeScreen()),
-         MaterialPageRoute(builder: (context) => VenmoPaymentScreen()),
+         MaterialPageRoute(builder: (context) => DashboardScreen()),
       );
     });
   }
