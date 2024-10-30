@@ -3,6 +3,7 @@ import 'package:ntsmetrics/selectpaymentmethod/view/payment_method_screen.dart';
 import 'package:ntsmetrics/signup/view/singup_screen.dart';
 import 'package:ntsmetrics/steps/view/steps_screen.dart';
 import 'package:ntsmetrics/trade/view/trade_screen.dart';
+import 'package:ntsmetrics/transactionlist/view/transaction_list_screen.dart';
 import 'package:ntsmetrics/verification_success/view/verification_success_screen.dart';
 import 'account/view/account_screen.dart';
 import 'addcard/view/add_card_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MarketScreen() ,
+      home: TransactionListScreen() ,
     );
   }
 }
