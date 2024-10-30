@@ -220,7 +220,7 @@ class _TradeScreenState extends State<TradeScreen> {
                   Icon(Icons.close),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Image.asset("assets/trade.png"),
+                    child: Image.asset("assets/images/trade.png"),
                   ),
                   Text("SOL/USDT",
                     style: GoogleFonts.alata(

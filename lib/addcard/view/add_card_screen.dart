@@ -327,7 +327,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xFF51586D)
                       ),
-                      suffixIcon: Image.asset("assets/visa.png"),
+                      suffixIcon: Image.asset("assets/images/visa.png"),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )

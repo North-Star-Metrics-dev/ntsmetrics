@@ -258,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Handle sign in with Google
                     },
                     icon: Image.asset(
-                      'assets/google_logo.png',
+                      'assets/images/google_logo.png',
                       width: 20,
                       height: 20,
                     ),
@@ -291,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   height: 24,
                     // ),
                     icon: Image.asset(
-                      'assets/fb_logo.png',
+                      'assets/images/fb_logo.png',
                       width: 24,
                       height: 24,
                     ),

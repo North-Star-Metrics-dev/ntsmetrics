@@ -163,7 +163,7 @@ class _MarketScreenState extends State<MarketScreen> {
                           padding: const EdgeInsets.only(left: 12,top: 12,bottom: 12,right: 8),
                           child: Row(
                             children: [
-                              Image.asset("assets/atom.png",height: 32, width: 32,),
+                              Image.asset("assets/images/atom.png",height: 32, width: 32,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 5,right: 5),
                                 child: Column(
@@ -230,7 +230,7 @@ class _MarketScreenState extends State<MarketScreen> {
                           padding: const EdgeInsets.all(12.0),
                           child: Row(
                             children: [
-                              Image.asset("assets/ENJ.png",height: 32, width: 32,),
+                              Image.asset("assets/images/ENJ.png",height: 32, width: 32,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 5,right: 5),
                                 child: Column(
@@ -315,7 +315,7 @@ class _MarketScreenState extends State<MarketScreen> {
                         children: [
                           Row(
                             children: [
-                              Image.asset("assets/ENJ.png"),
+                              Image.asset("assets/images/ENJ.png"),
                               Padding(
                                 padding: const EdgeInsets.only(left: 10),
                                 child: Column(

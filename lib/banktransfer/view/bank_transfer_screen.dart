@@ -58,7 +58,7 @@ class _BankTransferScreenState extends State<BankTransferScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset("assets/standard_chatered.png"),
+                      Image.asset("assets/images/standard_chatered.png"),
                       Padding(
                         padding: const EdgeInsets.only(top: 16),
                         child: Container(

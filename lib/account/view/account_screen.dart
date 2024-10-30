@@ -227,7 +227,7 @@ class AccountScreen extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(200, 50),
-                        primary: Colors.grey[400], // Set color to match image
+                        backgroundColor: Colors.grey[400],
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

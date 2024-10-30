@@ -21,7 +21,7 @@ class _VerificationSuccessScreenState extends State<VerificationSuccessScreen> {
           Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 50,bottom: 50),
-                child: Image.asset("assets/verification.png"),
+                child: Image.asset("assets/images/verification.png"),
               )
           ),
           Padding(

@@ -133,7 +133,7 @@ class _MarketSearchScreenState extends State<MarketSearchScreen> {
                       children: [
                         Row(
                           children: [
-                            Image.asset("assets/ENJ.png"),
+                            Image.asset("assets/images/ENJ.png"),
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Column(
