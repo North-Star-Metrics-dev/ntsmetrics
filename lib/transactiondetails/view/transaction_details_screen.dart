@@ -50,7 +50,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.asset("assets/images/transaction_pair.png"),
-        
+
                       //transaction pair text
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -62,7 +62,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                           ),
                         ),
                       ),
-        
+
                       //Solana(SOL)/Theter(USDT)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +95,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                           )
                         ],
                       ),
-        
+
                       //horizontal line
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -105,23 +105,29 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                           color: Color(0xFFD4D6DB),
                         ),
                       ),
-        
+
                       //total sol and total ustd portion
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total SOL",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Total SOL",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("1.099",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("1.099",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -130,23 +136,29 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Total USDT",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Total USDT",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("59.41",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("59.41",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
-        
+
                       //horizontal line
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -156,43 +168,29 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                           color: Color(0xFFD4D6DB),
                         ),
                       ),
-        
+
                       //middle part
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Price Type",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Price Type",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("Limit",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 14,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Limit Price",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
-                            ),
-                          ),
-                          Text("59.41",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Limit",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -201,38 +199,24 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Time",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Limit Price",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("3:28",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 14,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Gas Fee",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
-                            ),
-                          ),
-                          Text("0.05 USDT",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("59.41",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -241,23 +225,81 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Date",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Time",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("11/29/2023",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("3:28",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
-        
+                      SizedBox(height: 14,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text("Gas Fee",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Flexible(
+                            child: Text("0.05 USDT",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 14,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text("Date",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Flexible(
+                            child: Text("11/29/2023",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+
                       //horizontal line
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -267,23 +309,29 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                           color: Color(0xFFD4D6DB),
                         ),
                       ),
-        
+
                       //last part
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Transaction Status",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Transaction Status",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("Pending",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFFBBA24A)
+                          Flexible(
+                            child: Text("Pending",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFFBBA24A)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -292,25 +340,31 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Filled",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFF51586D)
+                          Flexible(
+                            child: Text("Filled",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFF51586D)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          Text("0.01/1.099",
-                            style: GoogleFonts.alata(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.1,
-                                color: Color(0xFFBBA24A)
+                          Flexible(
+                            child: Text("0.01/1.099",
+                              style: GoogleFonts.alata(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13.1,
+                                  color: Color(0xFFBBA24A)
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
-        
+
                       SizedBox(height: 14,),
-        
+
                       //total display row
                       Container(
                         width: MediaQuery.of(context).size.width * 1,
@@ -337,6 +391,9 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     ],
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 50,
               ),
               SizedBox(
                 width: double.infinity,
