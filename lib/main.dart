@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ntsmetrics/walletlog/view/wallet_log_screen.dart';
+
+import 'Iphone51transactiondetails/view/transactiondetails_screen.dart';
 
 
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WalletLogScreen() ,
+      home: Iphone51TransactiondetailsScreen() ,
     );
   }
 }
