@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Iphone51transactiondetails/view/transactiondetails_screen.dart';
+import 'Iphone52marketlog/view/marketlog_screen.dart';
 import 'iphone52earnlog/view/iphone51earnlog_screen.dart';
 
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Iphone51earnlogScreen() ,
+      home: MarketlogScreen() ,
     );
   }
 }
