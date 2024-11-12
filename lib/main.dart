@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ntsmetrics/algorandsubscription/view/algorand_subscription_screen.dart';
 import 'Iphone52deposit/view/Iphone52_deposit_screen.dart';
 
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Iphone52DepositScreen() ,
+      home: AlgorandSubscriptionScreen() ,
     );
   }
 }
