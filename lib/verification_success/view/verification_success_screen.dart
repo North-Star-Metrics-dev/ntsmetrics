@@ -14,7 +14,10 @@ class _VerificationSuccessScreenState extends State<VerificationSuccessScreen> {
     double height = MediaQuery.of(context).size.height * 1;
     double width = MediaQuery.of(context).size.width * 1;
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+      ),
       body: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [

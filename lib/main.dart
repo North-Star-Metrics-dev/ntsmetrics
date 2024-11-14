@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ntsmetrics/Iphone52depositbanktransfer/view/Iphone51_deposit_bank_transfer_screen.dart';
+import 'package:ntsmetrics/Iphone52depositfromcreditcard/view/deposit_from_credit_card_screen.dart';
 
 
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Iphone51DepositBankTransferScreen() ,
+      home: DepositFromCreditCardScreen() ,
     );
   }
 }
