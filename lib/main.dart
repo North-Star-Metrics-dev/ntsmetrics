@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ntsmetrics/Depositsuccess/view/deposit_success_screen.dart';
 import 'package:ntsmetrics/Iphone52depositfromcreditcard/view/deposit_from_credit_card_screen.dart';
+import 'package:ntsmetrics/createpinscreen/view/create_pin_screen.dart';
+import 'package:ntsmetrics/login/view/login_screen.dart';
 import 'package:ntsmetrics/otp/view/otp_screen.dart';
 import 'package:ntsmetrics/signup/view/singup_screen.dart';
 

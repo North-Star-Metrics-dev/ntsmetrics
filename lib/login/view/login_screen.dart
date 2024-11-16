@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:convert';
 
-import 'package:ntsmetrics/forgotpasswprd/view/forgot_password_screen.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ntsmetrics/login/controller/login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,9 +12,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  LoginController controller = Get.put(LoginController());
+  late String imageUrl;
+  late String base64String;
+
   final _formKey = GlobalKey<FormState>(); // For form validation
   String? email, password, pin, confirmPin;
   bool _isPasswordVisible = false; // For toggling password visibility
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCaptcha();
+  }
+
+  Future<void> fetchCaptcha() async {
+    imageUrl = await controller.getSignInCaptcha();
+    base64String = imageUrl.split(",").last;
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: controller.emailController.value,
                   style: GoogleFonts.alata(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -140,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: controller.passwordController.value,
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -190,6 +211,83 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   onSaved: (value) => password = value,
                 ),
+                SizedBox(height: 25),
+
+                // Captcha TextField
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 12,),
+                          Text('Enter Captcha',
+                            style: GoogleFonts.alata(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF2C2C2C),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Obx(() {
+                      return Container(
+                          height: 45,
+                          child: controller.isCaptchaLoading.value == false ?
+                          Image.memory(
+                            base64Decode(base64String),
+                            fit: BoxFit.fitWidth,
+                            //height: 50,
+                            //width: 200,
+                          ) : Container(
+                              height: 20,
+                              width: 20,
+                              child: Center(child: CircularProgressIndicator()))
+                      );
+                    })
+                  ],
+                ),
+                TextFormField(
+                  controller: controller.captchaController.value,
+                  style: GoogleFonts.alata(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF2C2C2C),
+                  ),
+                  decoration: InputDecoration(
+                    filled: true ,
+                    fillColor: MaterialStateColor.resolveWith((states) {
+                      if (states.contains(MaterialState.focused)) {
+                        return Color(0xFF00AEF7).withOpacity(0.2);
+                      }
+                      return Color(0xFFF5F5F5);
+                    }),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Color(0xFF00AEF7), width: 1.0),
+                    ),
+                  ),
+                  cursorColor: Color(0xFF00AEf7),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    // You can add more email validation here
+                    return null;
+                  },
+                  onSaved: (value) => email = value,
+                ),
 
                 //forget password button
                 Align(
@@ -217,18 +315,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        if (pin != confirmPin) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text('Pins do not match'),
-                          ));
-                          return;
-                        }
-                        // Process sign up with the entered information
-                        print('Email: $email, Password: $password, Pin: $pin');
-                      }
+                    onPressed: () async {
+                        controller.signIn();
+                      // await controller.delToken();
+                      // controller.getToken();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF00D1FF),
@@ -236,14 +326,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: Text(
-                      'Sign in',
-                      style: GoogleFonts.alata(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFFFFFFFF),
-                      ),
-                    ),
+                    child: Obx(() {
+                      return controller.isLoading.value == false ?
+                      Text(
+                        'Sign in',
+                        style: GoogleFonts.alata(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                      )
+                          :
+                      Container(
+                          height: 20,
+                          width: 20,
+                          child: Center(child: CircularProgressIndicator()));
+                    })
                   ),
                 ),
 

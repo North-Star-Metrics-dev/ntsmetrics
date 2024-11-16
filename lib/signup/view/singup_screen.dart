@@ -392,25 +392,33 @@ class _SignUpScreenState extends State<SingUpScreen> {
 
                 // Captcha TextField
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Text('Enter Captcha',
-                        style: GoogleFonts.alata(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF2C2C2C),
-                        ),
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 12,),
+                          Text('Enter Captcha',
+                            style: GoogleFonts.alata(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF2C2C2C),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Obx(() {
                       return Container(
+                        height: 45,
                         child: controller.isCaptchaLoading.value == false ?
                         Image.memory(
                           base64Decode(base64String),
                           fit: BoxFit.fitWidth,
-                          height: 50,
+                          //height: 50,
+                          //width: 200,
                         ) : Container(
                             height: 20,
                             width: 20,

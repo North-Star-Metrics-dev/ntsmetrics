@@ -1,20 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ntsmetrics/signup/controller/signup_controller.dart';
+import 'package:ntsmetrics/login/controller/login_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpScreen extends StatefulWidget {
-  const OtpScreen({
-super.key
-});
+
+class OtpForLoginScreen extends StatefulWidget {
+  const OtpForLoginScreen({super.key});
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<OtpForLoginScreen> createState() => _OtpForLoginScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
-  SignUpController controller = SignUpController();
+class _OtpForLoginScreenState extends State<OtpForLoginScreen> {
+  LoginController controller = LoginController();
 
   @override
   void initState() {
@@ -169,32 +169,32 @@ class _OtpScreenState extends State<OtpScreen> {
                                   width: MediaQuery.of(context).size.width * 0.35,
                                   height: 50,
                                   child: ElevatedButton(
-                                    onPressed: () {
-                                      print("pressed  ${controller.phoneOtpController.value.text} & ${controller.emailOtpController.value.text}");
-                                      controller.verifyOtp();
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xFF00D1FF),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    child: Obx(() {
-                                      return controller.isOtpLoading.value == false ?
-                                      Text(
-                                        'Confirm',
-                                        style: GoogleFonts.alata(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0xFFFFFFFF),
+                                      onPressed: () {
+                                        print("pressed  ${controller.phoneOtpController.value.text} & ${controller.emailOtpController.value.text}");
+                                        controller.verifyOtp();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xFF00D1FF),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
                                         ),
-                                      )
-                                          :
-                                      Container(
-                                          height: 20,
-                                          width: 20,
-                                          child: Center(child: CircularProgressIndicator()));
-                                    })
+                                      ),
+                                      child: Obx(() {
+                                        return controller.isOtpLoading.value == false ?
+                                        Text(
+                                          'Confirm',
+                                          style: GoogleFonts.alata(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xFFFFFFFF),
+                                          ),
+                                        )
+                                            :
+                                        Container(
+                                            height: 20,
+                                            width: 20,
+                                            child: Center(child: CircularProgressIndicator()));
+                                      })
                                   ),
                                 ),
                               ],
