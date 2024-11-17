@@ -20,7 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new,
+          icon: Icon(
+            Icons.arrow_back_ios_new,
             color: Color(0xFF2C2C2C),
             size: 15,
           ),
@@ -28,7 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
             // Handle back button press
           },
         ),
-        title: Text('Back',
+        title: Text(
+          'Back',
           style: GoogleFonts.alata(
             fontSize: 14,
             fontWeight: FontWeight.w400,
@@ -74,12 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: Text('Email',
-                        style: GoogleFonts.alata(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF2C2C2C),
-                        ),
+                    child: Text(
+                      'Email',
+                      style: GoogleFonts.alata(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF2C2C2C),
+                      ),
                     ),
                   ),
                 ),
@@ -92,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     //labelText: 'Email',
                     suffixIcon: Icon(Icons.check, color: Colors.green),
-                    filled: true ,
+                    filled: true,
                     fillColor: MaterialStateColor.resolveWith((states) {
                       if (states.contains(MaterialState.focused)) {
                         return Color(0xFF00AEF7).withOpacity(0.2);
@@ -100,16 +103,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       return Color(0xFFF5F5F5);
                     }),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
-                    ),
-                    enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE1E1E1), width: 1)),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Color(0xFF00AEF7), width: 1.0),
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Color(0xFF00AEF7), width: 1.0),
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -130,7 +135,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: Text('Password',
+                    child: Text(
+                      'Password',
                       style: GoogleFonts.alata(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -160,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       },
                     ),
-                    filled: true ,
+                    filled: true,
                     fillColor: MaterialStateColor.resolveWith((states) {
                       if (states.contains(MaterialState.focused)) {
                         return Color(0xFF00AEF7).withOpacity(0.2);
@@ -169,15 +175,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     }),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Color(0xFFE1E1E1),width: 1 )
-                    ),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE1E1E1), width: 1)),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
+                      borderSide:
+                          BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: Color(0xFF00AEF7), width: 1.0),
+                      borderSide:
+                          BorderSide(color: Color(0xFF00AEF7), width: 1.0),
                     ),
                   ),
                   obscureText: !_isPasswordVisible,
@@ -199,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Handle forgot password
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom:10,top: 3),
+                      padding: const EdgeInsets.only(bottom: 10, top: 3),
                       child: Text(
                         'Forgot password?',
                         style: GoogleFonts.alata(
@@ -212,6 +220,72 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: Padding(
+                //     padding: const EdgeInsets.only(bottom: 10),
+                //     child: Text(
+                //       'Enter Captcha',
+                //       style: GoogleFonts.alata(
+                //         fontSize: 14,
+                //         fontWeight: FontWeight.w400,
+                //         color: Color(0xFF2C2C2C),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+
+                   Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text('Enter Captcha',
+                        style: GoogleFonts.alata(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF2C2C2C),
+                        ),
+                      ),
+                    ),
+                    Image.asset("assets/samplecaptcha.png",height: 45,)
+                  ],
+                ),
+                TextFormField(
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF2C2C2C),
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'abcd',
+                    filled: true,
+                    fillColor: MaterialStateColor.resolveWith((states) {
+                      if (states.contains(MaterialState.focused)) {
+                        return Color(0xFF00AEF7).withOpacity(0.2);
+                      }
+                      return Color(0xFFF5F5F5);
+                    }),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            BorderSide(color: Color(0xFFE1E1E1), width: 1)),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Color(0xFFE1E1E1), width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Color(0xFF00AEF7), width: 1.0),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 30,
+                ),
                 // Sign In Button
                 SizedBox(
                   width: double.infinity,
@@ -247,7 +321,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                SizedBox(height: 80,),
+                SizedBox(
+                  height: 80,
+                ),
 
                 //Sign in with google & sign in with fb button
                 SizedBox(
@@ -262,7 +338,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 20,
                       height: 20,
                     ),
-                    label: Text('Sign in with Google',
+                    label: Text(
+                      'Sign in with Google',
                       style: GoogleFonts.alata(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -273,7 +350,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      side: BorderSide(color: Color(0xFF00D1FF,)),
+                      side: BorderSide(
+                          color: Color(
+                        0xFF00D1FF,
+                      )),
                     ),
                   ),
                 ),
@@ -295,7 +375,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 24,
                       height: 24,
                     ),
-                    label: Text('Sign in with Facebook',
+                    label: Text(
+                      'Sign in with Facebook',
                       style: GoogleFonts.alata(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -306,7 +387,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      side: BorderSide(color: Color(0xFF00D1FF,)),
+                      side: BorderSide(
+                          color: Color(
+                        0xFF00D1FF,
+                      )),
                     ),
                   ),
                 ),

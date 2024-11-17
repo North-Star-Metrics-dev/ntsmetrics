@@ -41,6 +41,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   pin_code_fields:
+  build_runner: ^2.4.6
+  json_serializable: ^6.6.1
+  json_annotation: ^4.8.1
   
   # svg_flutter: ^0.0.1
   flutter_svg: ^1.0.3
@@ -71,11 +74,13 @@ flutter:
     - assets/crypto_icons.png
     - assets/logo.png
     - assets/google_logo.png
+    - assets/fb_logo.png
     - assets/logo.svg
     - assets/bg.png
     - assets/bgb.png
     - assets/pattern.png
     - assets/s_tra.png
+    - assets/samplecaptcha.png
     
 
   #   - images/a_dot_burr.jpeg

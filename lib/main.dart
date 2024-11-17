@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ntsmetrics/buy_sell/view/trade_screen.dart';
+import 'package:ntsmetrics/dialog/filter.dart';
+import 'package:ntsmetrics/login/view/login_screen.dart';
 import 'package:ntsmetrics/trade/view/trade_screen.dart';
+import 'package:ntsmetrics/transaction_summary/view/transaction_cancel.dart';
+import 'package:ntsmetrics/transaction_summary/view/transaction_details.dart';
 import 'package:ntsmetrics/transaction_summary/view/transaction_summary.dart';
 import 'package:ntsmetrics/transaction_summary/view/transaction_summary_confirmed.dart';
 import 'addcard/view/add_card_screen.dart';
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SummaryConfirmScreen(),
+      home: TransactionDetailsScreen (),
     );
   }
 }
