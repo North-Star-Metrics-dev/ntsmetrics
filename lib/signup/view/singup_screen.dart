@@ -421,7 +421,7 @@ class _SignUpScreenState extends State<SingUpScreen> {
                           //width: 200,
                         ) : Container(
                             height: 20,
-                            width: 20,
+                            width: 40,
                             child: Center(child: CircularProgressIndicator()))
                       );
                     })

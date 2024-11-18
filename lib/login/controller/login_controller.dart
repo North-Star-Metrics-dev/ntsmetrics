@@ -4,7 +4,10 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:ntsmetrics/2FA/view/2FA_screen.dart';
 import 'package:ntsmetrics/Otpforlogin/view/Otp_for_login_screen.dart';
+import 'package:ntsmetrics/selectpaymentmethod/view/payment_method_screen.dart';
+import 'package:ntsmetrics/verifypinforlogin/view/verify_pin_for_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Global/GetTokens.dart';
@@ -20,11 +23,16 @@ class LoginController extends GetxController{
   RxBool isLoading = false.obs;
   RxBool isCaptchaLoading = false.obs;
   RxBool isOtpLoading = false.obs;
+  RxBool isCheckingPinLoading = false.obs;
+  RxBool isTwoFactorLoading = false.obs;
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
   final captchaController = TextEditingController().obs;
   final phoneOtpController = TextEditingController().obs;
   final emailOtpController = TextEditingController().obs;
+  final pinController = TextEditingController().obs;
+  final twoFactorAuthenticationController = TextEditingController().obs;
+
 
   LoginController() {
     dio.interceptors.add(CookieManager(cookieJar));
@@ -209,7 +217,118 @@ class LoginController extends GetxController{
       if (response.statusCode == 200) {
         var responseData = response.data;
         isOtpLoading.value = false;
-        Get.off(CreatePinScreen());
+        Get.off(VerifyPinForLogin());
+      } else {
+        isOtpLoading.value = false;
+        Get.snackbar("Error", "Error occurred");
+      }
+    } catch(error) {
+      if (error is DioError) {
+        isOtpLoading.value = false;
+        if (error.response != null) {
+          Get.snackbar("Error", "${error.response?.data['message']}");
+        }
+        print("error $error");
+        var errorMessage = error.message;
+        print("$errorMessage");
+      } else {
+        isOtpLoading.value = false;
+      }
+    }
+  }
+
+  Future<void> createPin() async {
+    isCheckingPinLoading.value = true;
+    try {
+      final data = {
+        "pin": pinController.value.text
+      };
+
+      final tokens = await getTokens.getTokens();
+      final sessionId = tokens['connect.sid'];
+      print("before token $sessionId");
+
+      final response = await dio.post("$baseUrl/auth/login/verify-pin",
+          data: data,
+          options: Options(
+              headers: {
+                'Content-Type':'application/json',
+                'Cookie': 'connect.sid=$sessionId',
+              },
+            responseType: ResponseType.bytes,
+          )
+      );
+
+      print("response $response");
+
+      print("response data ${response.data}");
+
+      print("statuscode ${response.statusCode}");
+
+      print("headerssssssssssssssssssssss ${response.headers}");
+
+      if (response.statusCode == 200) {
+        //await getTokens.clearAllTokens();
+        final sessionId2 = tokens['connect.sid'];
+        final responseData = response.data;
+        print("after token $sessionId2");
+        isCheckingPinLoading.value = false;
+
+        Get.off(TwoFactorAuthenticationScreen(imageBytes: responseData));
+        Get.snackbar("Success", "User Created Successfully");
+      } else {
+        isCheckingPinLoading.value = false;
+        Get.snackbar("Error", "Error occurred");
+      }
+    } catch(error) {
+      if (error is DioError) {
+        isCheckingPinLoading.value = false;
+        if (error.response != null) {
+          Get.snackbar("Error", "${error.response?.data['message']}");
+        }
+      } else {
+        isCheckingPinLoading.value = false;
+      }
+    }
+  }
+
+  Future<void> verify2FA() async {
+    isTwoFactorLoading.value = true;
+    try {
+      final data = {
+        //  "emailOtp": emailOtpController.value.text,
+        // "phoneOtp": phoneOtpController.value.text,
+        // "emailOtp": int.tryParse(emailOtpController.value.text) ?? 0,
+        // "phoneOtp": int.tryParse(phoneOtpController.value.text) ?? 0,
+        "twoFAcode":twoFactorAuthenticationController.value.text
+      };
+
+      final tokens = await getTokens.getTokens();
+      final sessionId = tokens['connect.sid'];
+      print('Session ID: $sessionId');
+
+      print("data $data");
+
+      final response = await dio.post("$baseUrl/auth/login/verify-2fa",
+          data: data,
+          options: Options(
+              headers: {
+                'Content-Type':'application/json',
+                'Cookie': 'connect.sid=$sessionId',
+              }
+          )
+      );
+
+      print("response $response");
+
+      print("response data ${response.data}");
+
+      print("statuscode ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        var responseData = response.data;
+        isOtpLoading.value = false;
+        Get.off(PaymentMethodScreen());
       } else {
         isOtpLoading.value = false;
         Get.snackbar("Error", "Error occurred");
