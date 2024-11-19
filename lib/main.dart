@@ -1,98 +1,7 @@
-// // import 'package:flutter/material.dart';
-// // import 'package:get/get.dart';
-// // import 'package:ntsmetrics/Depositsuccess/view/deposit_success_screen.dart';
-// // import 'package:ntsmetrics/Iphone52depositfromcreditcard/view/deposit_from_credit_card_screen.dart';
-// // import 'package:ntsmetrics/createpinscreen/view/create_pin_screen.dart';
-// // import 'package:ntsmetrics/login/view/login_screen.dart';
-// // import 'package:ntsmetrics/otp/view/otp_screen.dart';
-// // import 'package:ntsmetrics/signup/view/singup_screen.dart';
-// //
-// //
-// //
-// // void main() {
-// //   runApp( MyApp());
-// // }
-// //
-// // class MyApp extends StatelessWidget {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return GetMaterialApp(
-// //       debugShowCheckedModeBanner: false,
-// //       home: SingUpScreen() ,
-// //     );
-// //   }
-// // }
-//
-//
-//
-//
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:ntsmetrics/Depositsuccess/view/deposit_success_screen.dart';
-// import 'package:ntsmetrics/Iphone52depositfromcreditcard/view/deposit_from_credit_card_screen.dart';
-// import 'package:ntsmetrics/createpinscreen/view/create_pin_screen.dart';
-// import 'package:ntsmetrics/login/view/login_screen.dart';
-// import 'package:ntsmetrics/otp/view/otp_screen.dart';
-// import 'package:ntsmetrics/signup/view/singup_screen.dart';
-//
-//
-//
-// void main() {
-//   runApp( MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: SingUpScreen() ,
-//     );
-//   }
-// }
-
-
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:ntsmetrics/Depositsuccess/view/deposit_success_screen.dart';
-// import 'package:ntsmetrics/Iphone52depositfromcreditcard/view/deposit_from_credit_card_screen.dart';
-// import 'package:ntsmetrics/createpinscreen/view/create_pin_screen.dart';
-// import 'package:ntsmetrics/login/view/login_screen.dart';
-// import 'package:ntsmetrics/otp/view/otp_screen.dart';
-// import 'package:ntsmetrics/signup/view/singup_screen.dart';
-// import 'package:uni_links/uni_links.dart'; // Add this package for deep linking
-//
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: SingUpScreen(),
-//       initialRoute: '/',
-//       getPages: [
-//         GetPage(name: '/', page: () => SingUpScreen()),
-//         GetPage(name: '/confirm-login', page: () => LoginScreen()),
-//         // Add more routes as needed
-//       ],
-//     );
-//   }
-// }
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart'; // Add this package for deep linking
-import 'package:ntsmetrics/Depositsuccess/view/deposit_success_screen.dart';
-import 'package:ntsmetrics/Iphone52depositfromcreditcard/view/deposit_from_credit_card_screen.dart';
-import 'package:ntsmetrics/createpinscreen/view/create_pin_screen.dart';
 import 'package:ntsmetrics/login/view/login_screen.dart';
-import 'package:ntsmetrics/otp/view/otp_screen.dart';
 import 'package:ntsmetrics/signup/view/singup_screen.dart';
 
 void main() {
@@ -112,29 +21,41 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _initializeDeepLinks() async {
-    // Handle the app when launched via a deep link
-    final initialUri = await getInitialUri();
-    if (initialUri != null) {
-      _handleDeepLink(initialUri);
-    }
-
-    // Listen for incoming deep links while the app is running
-    uriLinkStream.listen((Uri? deepLink) {
-      if (deepLink != null) {
-        _handleDeepLink(deepLink);
+    try {
+      // Handle the app when launched via a deep link
+      final initialUri = await getInitialUri();
+      if (initialUri != null) {
+        debugPrint('Initial deep link: $initialUri');
+        _handleDeepLink(initialUri);
       }
-    });
+
+      // Listen for incoming deep links while the app is running
+      uriLinkStream.listen((Uri? deepLink) {
+        if (deepLink != null) {
+          debugPrint('Received deep link: $deepLink');
+          _handleDeepLink(deepLink);
+        }
+      }, onError: (err) {
+        debugPrint('Deep link error: $err');
+      });
+    } catch (e) {
+      debugPrint('Error initializing deep links: $e');
+    }
   }
 
   void _handleDeepLink(Uri deepLink) {
     // Check the path and query parameters
+    debugPrint('Handling deep link: $deepLink');
     if (deepLink.path == '/confirm-login') {
       final token = deepLink.queryParameters['token'];
       if (token != null) {
+        debugPrint('Navigating to LoginScreen with token: $token');
         // Navigate to LoginScreen and pass the token as an argument
         Get.toNamed('/confirm-login', arguments: {'token': token});
+        return;
       }
     }
+    debugPrint('No matching deep link found. Staying on the current screen.');
   }
 
   @override
@@ -145,8 +66,10 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => SingUpScreen()),
-        GetPage(name: '/confirm-login', page: () => LoginScreen()),
-        // Add more routes as needed
+        GetPage(
+          name: '/confirm-login',
+          page: () => LoginScreen(),
+        ),
       ],
     );
   }
