@@ -42,4 +42,16 @@ class GetTokens {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('sessionId');
   }
+
+  // Function to retrieve the accessToken
+  Future<String?> getAccessToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken');
+  }
+
+  // Function to retrieve the refreshToken
+  Future<String?> getRefreshToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('refreshToken');
+  }
 }

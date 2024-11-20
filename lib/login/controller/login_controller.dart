@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:ntsmetrics/2FA/view/2FA_screen.dart';
 import 'package:ntsmetrics/Otpforlogin/view/Otp_for_login_screen.dart';
 import 'package:ntsmetrics/selectpaymentmethod/view/payment_method_screen.dart';
+import 'package:ntsmetrics/steps/view/steps_screen.dart';
 import 'package:ntsmetrics/verifypinforlogin/view/verify_pin_for_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,6 +26,8 @@ class LoginController extends GetxController{
   RxBool isOtpLoading = false.obs;
   RxBool isCheckingPinLoading = false.obs;
   RxBool isTwoFactorLoading = false.obs;
+  RxBool isResendingPhoneOtp = false.obs;
+  RxBool isResendingEmailOtp = false.obs;
   final emailController = TextEditingController().obs;
   final passwordController = TextEditingController().obs;
   final captchaController = TextEditingController().obs;
@@ -82,8 +85,24 @@ class LoginController extends GetxController{
         return "";
       }
     } catch (error) {
-      handleError(error.toString() as DioError);
-      return '';
+      isCaptchaLoading.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+
+        switch (statusCode) {
+          case 500:
+            Get.snackbar("User creation failed", message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
+        }
+        return "";
+      } else {
+        Get.snackbar("Error", "Something went wrong. Please try again.");
+        return "";
+      }
     }
   }
 
@@ -111,30 +130,6 @@ class LoginController extends GetxController{
       );
 
       if (response.statusCode == 200) {
-        // final cookies = response.headers['set-cookie'];
-        // if (cookies != null) {
-        //   String? sessionId;
-        //
-        //   for (var cookie in cookies) {
-        //     if (cookie.contains('connect.sid=')) {
-        //       sessionId = Uri.decodeComponent(cookie.split('connect.sid=')[1].split(';')[0]);
-        //     }
-        //   }
-        //
-        //   if (sessionId != null) {
-        //     try {
-        //       final prefs = await SharedPreferences.getInstance();
-        //       await prefs.setString('sessionId', sessionId);
-        //       print('Stored sessionId successfully');
-        //     } catch (e) {
-        //       print("cookies: $cookies");
-        //       print("sessionId: $sessionId");
-        //       print('Error writing sessionId to SharedPreferences: $e');
-        //     }
-        //   } else {
-        //     print('Session ID is null');
-        //   }
-        // }
         final cookies = response.headers['set-cookie'];
         print("cookies $cookies");
         if (cookies != null) {
@@ -161,23 +156,42 @@ class LoginController extends GetxController{
           }
         }
         isLoading.value = false;
+        Get.snackbar(response.data['code'], response.data['message'] ?? "Logged in successfully");
         Get.off(OtpForLoginScreen());
-        //isSignUpSuccess.value = true;
         print(response.data["message"]);
       } else {
         isLoading.value = false;
         Get.snackbar("Error", "Error occurred");
       }
-    } catch(error) {
-      if (error is DioError) {
-        isLoading.value = false;
-        print('DioError: ${error.toString()}');
-        if (error.response != null) {
-          print('Error Response Data: ${error.response?.data}');
+    } catch (error) {
+      isLoading.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+        final title = error.response!.data["code"] ?? "Unknown";
+
+        switch (statusCode) {
+          case 400:
+            Get.snackbar(title, message);
+            break;
+          case 401:
+            Get.snackbar(title, message);
+            break;
+          case 404:
+            Get.snackbar(title, message);
+            break;
+          case 409:
+            Get.snackbar(title, message);
+            break;
+          case 500:
+            Get.snackbar(title, message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
         }
-        final errorMessage = error.response?.data['message'] ?? 'An error occurred. Please try again.';
       } else {
-        isLoading.value = false;
+        Get.snackbar("Error", "Something went wrong. Please try again.");
       }
     }
   }
@@ -217,22 +231,35 @@ class LoginController extends GetxController{
       if (response.statusCode == 200) {
         var responseData = response.data;
         isOtpLoading.value = false;
+        Get.snackbar(response.data['code'], response.data['message'] ?? "OTP's verified");
         Get.off(VerifyPinForLogin());
       } else {
         isOtpLoading.value = false;
         Get.snackbar("Error", "Error occurred");
       }
-    } catch(error) {
-      if (error is DioError) {
-        isOtpLoading.value = false;
-        if (error.response != null) {
-          Get.snackbar("Error", "${error.response?.data['message']}");
+    } catch (error) {
+      isOtpLoading.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+        final title = error.response!.data['code'] ?? "Unknown";
+
+        switch (statusCode) {
+          case 400:
+            Get.snackbar(title, message);
+            break;
+          case 401:
+            Get.snackbar(title, message);
+            break;
+          case 403:
+            Get.snackbar(title, message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
         }
-        print("error $error");
-        var errorMessage = error.message;
-        print("$errorMessage");
       } else {
-        isOtpLoading.value = false;
+        Get.snackbar("Error", "Something went wrong. Please try again.");
       }
     }
   }
@@ -259,35 +286,53 @@ class LoginController extends GetxController{
           )
       );
 
-      print("response $response");
+      //print("response $response");
 
       print("response data ${response.data}");
 
       print("statuscode ${response.statusCode}");
 
-      print("headerssssssssssssssssssssss ${response.headers}");
+      //print("headerssssssssssssssssssssss ${response.headers}");
 
       if (response.statusCode == 200) {
         //await getTokens.clearAllTokens();
-        final sessionId2 = tokens['connect.sid'];
+        //final sessionId2 = tokens['connect.sid'];
         final responseData = response.data;
-        print("after token $sessionId2");
+        //print("after token $sessionId2");
         isCheckingPinLoading.value = false;
 
         Get.off(TwoFactorAuthenticationScreen(imageBytes: responseData));
-        Get.snackbar("Success", "User Created Successfully");
+        Get.snackbar(responseData['code'], responseData['message']);
       } else {
         isCheckingPinLoading.value = false;
         Get.snackbar("Error", "Error occurred");
       }
-    } catch(error) {
-      if (error is DioError) {
-        isCheckingPinLoading.value = false;
-        if (error.response != null) {
-          Get.snackbar("Error", "${error.response?.data['message']}");
+    } catch (error) {
+      isCheckingPinLoading.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+        final title = error.response!.data['code'] ?? "Unknown";
+
+        switch (statusCode) {
+          case 400:
+            Get.snackbar(title, message);
+            break;
+          case 401:
+            Get.snackbar(title, message);
+            break;
+          case 403:
+            Get.snackbar(title, message);
+            break;
+          case 409:
+            Get.snackbar(title, message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
         }
       } else {
-        isCheckingPinLoading.value = false;
+        Get.snackbar("Error", "Something went wrong. Please try again.");
       }
     }
   }
@@ -296,10 +341,6 @@ class LoginController extends GetxController{
     isTwoFactorLoading.value = true;
     try {
       final data = {
-        //  "emailOtp": emailOtpController.value.text,
-        // "phoneOtp": phoneOtpController.value.text,
-        // "emailOtp": int.tryParse(emailOtpController.value.text) ?? 0,
-        // "phoneOtp": int.tryParse(phoneOtpController.value.text) ?? 0,
         "twoFAcode":twoFactorAuthenticationController.value.text
       };
 
@@ -326,52 +367,148 @@ class LoginController extends GetxController{
       print("statuscode ${response.statusCode}");
 
       if (response.statusCode == 200) {
-        var responseData = response.data;
-        isOtpLoading.value = false;
-        Get.off(PaymentMethodScreen());
+        isTwoFactorLoading.value = false;
+
+        // Save accessToken and refreshToken to SharedPreferences
+        // final prefs = await SharedPreferences.getInstance();
+        // await prefs.setString('accessToken', response.data['accessToken']);
+        // await prefs.setString('refreshToken', response.data['refreshToken']);
+        final cookies = response.headers['set-cookie'];
+        print("cookies $cookies");
+
+        Get.snackbar(response.data['code'], response.data['message']);
+        Get.off(StepsScreen());
       } else {
-        isOtpLoading.value = false;
+        isTwoFactorLoading.value = false;
         Get.snackbar("Error", "Error occurred");
       }
-    } catch(error) {
-      if (error is DioError) {
-        isOtpLoading.value = false;
-        if (error.response != null) {
-          Get.snackbar("Error", "${error.response?.data['message']}");
+    } catch (error) {
+      isTwoFactorLoading.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+        final title = error.response!.data['code'] ?? "Unknown";
+
+        switch (statusCode) {
+          case 401:
+            Get.snackbar(title, message);
+            break;
+          case 403:
+            Get.snackbar(title, message);
+            break;
+          case 500:
+            Get.snackbar(title, message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
         }
-        print("error $error");
-        var errorMessage = error.message;
-        print("$errorMessage");
       } else {
-        isOtpLoading.value = false;
+        Get.snackbar("Error", "Something went wrong. Please try again.");
       }
     }
   }
 
-  void handleError(DioError error) {
-    isCaptchaLoading.value = false;
-    if (error.response != null) {
-      print("error response ${error.response}");
-      final errorMessage = error.response?.data['message'] ?? 'An error occurred. Please try again.';
-      print('Error: $errorMessage');
-    } else {
-      print('An unknown error occurred');
+  Future<void> resendPhoneOtp() async {
+    isResendingPhoneOtp.value = true;
+    try {
+      final tokens = await getTokens.getTokens();
+      final sessionId = tokens['connect.sid'];
+      print("before token $sessionId");
+
+      final response = await dio.post("$baseUrl/auth/resend-phone-otp",
+          options: Options(
+              headers: {
+                'Content-Type':'application/json',
+                'Cookie': 'connect.sid=$sessionId',
+              }
+          )
+      );
+
+      if (response.statusCode == 200) {
+        isResendingPhoneOtp.value = false;
+        var responseBody = response.data;
+
+        Get.snackbar("${responseBody["code"]}", "${responseBody["message"]}");
+      } else {
+        isResendingPhoneOtp.value = false;
+        Get.snackbar("Error", "Error occurred");
+      }
+    } catch (error) {
+      isResendingPhoneOtp.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+
+        switch (statusCode) {
+          case 400:
+            Get.snackbar("Error", message);
+            break;
+          case 401:
+            Get.snackbar("Error", message);
+            break;
+          case 500:
+            Get.snackbar("Error", message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
+        }
+      } else {
+        Get.snackbar("Error", "Something went wrong. Please try again.");
+      }
     }
   }
 
-  Future<void> getToken() async {
-    //GetTokens getToken = GetTokens();
-    final tokens = await getTokens.getTokens();
-    final sessionId = tokens['connect.sid'];
-    print('Session ID: $sessionId');
-  }
+  Future<void> resendEmailOtp() async {
+    isResendingEmailOtp.value = true;
+    try {
+      final tokens = await getTokens.getTokens();
+      final sessionId = tokens['connect.sid'];
+      print("before token $sessionId");
 
-  Future<void> delToken() async {
-    //GetTokens getToken = GetTokens();
-    //final tokens =
-    await getTokens.clearAllTokens();
-    // final sessionId = tokens['connect.sid'];
-    // print('Session ID: $sessionId');
+      final response = await dio.post("$baseUrl/auth/resend-email-otp",
+          options: Options(
+              headers: {
+                'Content-Type':'application/json',
+                'Cookie': 'connect.sid=$sessionId',
+              }
+          )
+      );
+
+      if (response.statusCode == 200) {
+        isResendingEmailOtp.value = false;
+        var responseBody = response.data;
+
+        Get.snackbar("${responseBody["code"]}", "${responseBody["message"]}");
+      } else {
+        isResendingEmailOtp.value = false;
+        Get.snackbar("Error", "Error occurred");
+      }
+    } catch (error) {
+      isResendingEmailOtp.value = false;
+      if (error is DioError && error.response != null) {
+        final statusCode = error.response!.statusCode;
+        final message = error.response!.data['message'] ?? "Unknown error";
+
+        switch (statusCode) {
+          case 400:
+            Get.snackbar("Error", message);
+            break;
+          case 401:
+            Get.snackbar("Error", message);
+            break;
+          case 500:
+            Get.snackbar("Error", message);
+            break;
+          default:
+            Get.snackbar("Error", message);
+            break;
+        }
+      } else {
+        Get.snackbar("Error", "Something went wrong. Please try again.");
+      }
+    }
   }
 
 }

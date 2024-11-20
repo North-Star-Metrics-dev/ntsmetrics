@@ -67,11 +67,11 @@ class _OtpScreenState extends State<OtpScreen> {
                               ),
                             ),
                           ),
-                          //mobile otp text
+                          //phone otp text
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Text(
-                              'Mobile OTP',
+                              'Phone OTP',
                               style: GoogleFonts.alata(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -79,7 +79,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               ),
                             ),
                           ),
-                          //mobile otp field
+                          //phone otp field
                           Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: PinCodeTextField(
@@ -111,6 +111,32 @@ class _OtpScreenState extends State<OtpScreen> {
                               },
                               cursorColor: Color(0xFF00AEF7),
                               enableActiveFill: true,
+                            ),
+                          ),
+                          //resend phone otp text
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: InkWell(
+                              onTap: () {
+                                controller.resendPhoneOtp();
+                              },
+                              child: Obx(() {
+                                return controller.isResendingPhoneOtp.value == false ?
+                                Text(
+                                  'Resend Phone OTP',
+                                  style: GoogleFonts.alata(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF00D1FF),
+                                  ),
+                                )
+                                    :
+                                    Container(
+                                      height: 15,
+                                      width: 15,
+                                      child: CircularProgressIndicator(),
+                                    );
+                              })
                             ),
                           ),
                           //email otp text
@@ -157,6 +183,32 @@ class _OtpScreenState extends State<OtpScreen> {
                               },
                               cursorColor: Color(0xFF00AEF7),
                               enableActiveFill: true,
+                            ),
+                          ),
+                          //resend otp text
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: InkWell(
+                              onTap: () {
+                                controller.resendEmailOtp();
+                              },
+                              child: Obx(() {
+                                return controller.isResendingEmailOtp.value == false ?
+                                Text(
+                                  'Resend Email OTP',
+                                  style: GoogleFonts.alata(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF00D1FF),
+                                  ),
+                                )
+                                    :
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  child: CircularProgressIndicator(),
+                                );
+                              })
                             ),
                           ),
 

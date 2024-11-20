@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Global/GetTokens.dart';
+
 class StepsScreen extends StatefulWidget {
   const StepsScreen({super.key});
 
@@ -9,6 +11,7 @@ class StepsScreen extends StatefulWidget {
 }
 
 class _StepsScreenState extends State<StepsScreen> {
+  final GetTokens getTokens = GetTokens();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,8 +161,11 @@ class _StepsScreenState extends State<StepsScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Add proceed functionality here
+                    onPressed: () async {
+                      final accessToken = await getTokens.getAccessToken();
+                      final refreshToken = await getTokens.getRefreshToken();
+
+                      print("accessToooken = $accessToken annndddddd resfresTTTttoen = $refreshToken");
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:  Color(0xFF00D1FF),

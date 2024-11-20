@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ntsmetrics/Otpforlogin/view/Otp_for_login_screen.dart';
+import 'package:ntsmetrics/otp/view/otp_screen.dart';
+import 'package:ntsmetrics/steps/view/steps_screen.dart';
 import 'package:uni_links/uni_links.dart'; // Add this package for deep linking
 import 'package:ntsmetrics/login/view/login_screen.dart';
 import 'package:ntsmetrics/signup/view/singup_screen.dart';
